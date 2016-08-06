@@ -7,10 +7,13 @@
 //
 
 #import <UIKit/UIKit.h>
+#import "InstagramKit.h"
 
 @interface ViewController : UIViewController
 
 - (void) loginSucceeded;
+- (void) loadPicturesForUser: (InstagramUser *) user;
+- (void) sortMedia: (NSMutableArray <InstagramMedia *> *) media;
 
 @end
 
