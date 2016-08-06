@@ -12,7 +12,7 @@
 #import "UIImageView+AFNetworking.h"
 #import "InstagramKit.h"
 
-@interface ViewController () <UIWebViewDelegate, UICollectionViewDelegate, UICollectionViewDataSource>
+@interface ViewController () <UIWebViewDelegate, UICollectionViewDelegateFlowLayout, UICollectionViewDataSource>
 
 @property (nonatomic, strong) UIButton *loginButton;
 @property (nonatomic, strong) InstagramEngine *engine;
@@ -55,11 +55,13 @@
     [self.searchButton addTarget:self action:@selector(startSearch) forControlEvents:UIControlEventTouchUpInside];
     self.searchField = [[UITextField alloc] init];
     [self.searchField setBackgroundColor: [UIColor grayColor]];
-    self.loadedMediaView = [[UICollectionView alloc] initWithFrame:CGRectMake(0, 0, 0, 0) collectionViewLayout: [UICollectionViewFlowLayout new]];
+    UICollectionViewFlowLayout *layout = [UICollectionViewFlowLayout new];
+    self.loadedMediaView = [[UICollectionView alloc] initWithFrame:CGRectMake(0, 0, 0, 0) collectionViewLayout: layout];
     [self.loadedMediaView setBackgroundColor:[UIColor grayColor]];
     [self.loadedMediaView setAllowsSelection: NO];
-    self.loadedMediaView.delegate = (id) self;
-    self.loadedMediaView.dataSource = (id) self;
+    [self.loadedMediaView setDelegate:self];
+    [self.loadedMediaView setDataSource:self];
+    [self.loadedMediaView registerClass:[UICollectionViewCell class] forCellWithReuseIdentifier:@"myItem"];
 }
 
 #pragma mark - webViewDelegate Realisation
@@ -99,9 +101,9 @@
         [self.searchButton removeFromSuperview];
         if (self.foundUsers.count > 0) {
             [self loadPicturesForUser: [self.foundUsers objectAtIndex: 0]];
+            NSLog(@"Media: %@", self.loadedMedia);
             [self.view addSubview:self.loadedMediaView];
             [self.loadedMediaView reloadData];
-            NSLog(@"Media: %@", self.loadedMedia);
         }
     }failure: ^(NSError *error, NSInteger serverStatusCode) {NSLog(@"Search Failed, code: %li", (long)serverStatusCode);}];
 }
@@ -109,17 +111,15 @@
 #pragma mark - ImageLoader
 
 - (void) loadPicturesForUser: (InstagramUser *) user {
-    NSThread *loadThread = [NSThread new];
-    [loadThread start];
     [self.engine
      getMediaForUser:user.Id
      withSuccess:^(NSArray <InstagramMedia *> * __weak media, InstagramPaginationInfo * _Nonnull paginationInfo) {
          NSLog(@"Media Successfully Loaded!");
          self.mediaInfo = [NSMutableArray arrayWithArray:media];
          [self sortMedia: self.mediaInfo];
+         NSLog(@"Media: %@", self.loadedMedia);
      }
      failure:^(NSError * _Nonnull error, NSInteger serverStatusCode) {}];
-    [loadThread cancel];
 }
 
 - (void) sortMedia: (NSMutableArray <InstagramMedia *> *)media{
@@ -153,27 +153,31 @@
     }
 }
 
-#pragma mark - UICollectionViewDelegate Realisaton
+#pragma mark - UICollectionViewDelegateFlowLayout Realisaton
 
 - (NSInteger)numberOfSectionsInCollectionView:(UICollectionView *)collectionView {
-    return self.loadedMedia.count;
+    return 1;
+}
+
+- (CGSize) collectionView:(UICollectionView *)collectionView layout:(UICollectionViewLayout *)collectionViewLayout sizeForItemAtIndexPath:(NSIndexPath *)indexPath {
+    return CGSizeMake(75, 75);
 }
 
 #pragma mark - UICollectionViewDataSource Realisation
 
 - (NSInteger)collectionView:(UICollectionView *)collectionView numberOfItemsInSection:(NSInteger)section {
-    return self.loadedMedia.count;
+    //return 16;
+    return [self.loadedMedia count];
 }
 
 - (UICollectionViewCell *)collectionView:(UICollectionView *)collectionView cellForItemAtIndexPath:(NSIndexPath *)indexPath {
     NSString *simpleSelector = @"myItem";
-    [collectionView registerClass:[UICollectionViewCell class] forCellWithReuseIdentifier:simpleSelector];
-    UICollectionViewCell *cell;
-    cell = [collectionView dequeueReusableCellWithReuseIdentifier:simpleSelector forIndexPath:indexPath];
-    UIImageView *cellView = (UIImageView *)[cell viewWithTag:10];
-    cellView = self.loadedMedia[indexPath.item];
-    if (cell == nil) {
-        cell = [[UICollectionViewCell alloc] init];
+    UICollectionViewCell *cell = [collectionView dequeueReusableCellWithReuseIdentifier:simpleSelector forIndexPath:indexPath];
+    UIImageView *image = (UIImageView *)[cell viewWithTag:69];
+    if (!image) {
+        image = [[UIImageView alloc] initWithImage:[[self.loadedMedia objectAtIndex:indexPath.item] image]];
+        [image setTag:69];
+        [cell.contentView addSubview:image];
     }
     return cell;
 }
