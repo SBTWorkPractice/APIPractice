@@ -77,7 +77,7 @@
 #pragma mark - Login
 
 -(void) tryToLogin {
-    [self.engine logout];
+    //[self.engine logout];
     NSURL *authURL = [self.engine authorizationURLForScope:InstagramKitLoginScopePublicContent];
     [self.loginButton removeFromSuperview];
     [self.view addSubview: self.webView];
@@ -101,9 +101,6 @@
         [self.searchButton removeFromSuperview];
         if (self.foundUsers.count > 0) {
             [self loadPicturesForUser: [self.foundUsers objectAtIndex: 0]];
-            NSLog(@"Media: %@", self.loadedMedia);
-            [self.view addSubview:self.loadedMediaView];
-            [self.loadedMediaView reloadData];
         }
     }failure: ^(NSError *error, NSInteger serverStatusCode) {NSLog(@"Search Failed, code: %li", (long)serverStatusCode);}];
 }
@@ -117,7 +114,7 @@
          NSLog(@"Media Successfully Loaded!");
          self.mediaInfo = [NSMutableArray arrayWithArray:media];
          [self sortMedia: self.mediaInfo];
-         NSLog(@"Media: %@", self.loadedMedia);
+         //NSLog(@"Media: %@", self.loadedMedia);
      }
      failure:^(NSError * _Nonnull error, NSInteger serverStatusCode) {}];
 }
@@ -142,15 +139,25 @@
             }
         }
     }
+    self.mediaInfo = media;
     NSLog(@"Sorting Completed!");
-    for (int i = 0; i < media.count; i++){
-        NSLog(@"Position: %i, Likes Count: %li", i, (long)media[i].likesCount);
+    for (int i = 0; i < self.mediaInfo.count; i++){
+        NSLog(@"Position: %i, Likes Count: %li", i, (long)self.mediaInfo[i].likesCount);
     }
-    self.loadedMedia = [NSMutableArray arrayWithCapacity:media.count];
+    self.loadedMedia = [NSMutableArray arrayWithCapacity:self.mediaInfo.count];
     for (int i = 0; i < media.count; i++) {
         self.loadedMedia[i] = [UIImageView new];
-        [self.loadedMedia[i] setImageWithURL: media[i].standardResolutionImageURL];
+        [self.loadedMedia[i] setImageWithURL: self.mediaInfo[i].thumbnailURL];
     }
+    [self mediaLoaded];
+}
+
+#pragma mark - UICollectionView Population
+
+- (void) mediaLoaded {
+    NSLog(@"Media: %@", self.loadedMedia);
+    [self.loadedMediaView reloadData];
+    [self.view addSubview:self.loadedMediaView];
 }
 
 #pragma mark - UICollectionViewDelegateFlowLayout Realisaton
