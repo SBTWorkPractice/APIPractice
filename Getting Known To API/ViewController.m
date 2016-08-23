@@ -11,6 +11,9 @@
 #import "AFImageDownloader.h"
 #import "UIImageView+AFNetworking.h"
 #import "InstagramKit.h"
+#import "LoginViewController.h"
+#import "ServerInteractionManager.h"
+
 
 @interface ViewController () <UIWebViewDelegate, UICollectionViewDelegateFlowLayout, UICollectionViewDataSource>
 
@@ -19,11 +22,10 @@
 @property (nonatomic, strong) UIWebView *webView;
 @property (nonatomic, strong) UIButton *searchButton;
 @property (nonatomic, strong) UITextField *searchField;
-@property (nonatomic, weak)   InstagramPaginationInfo *paginationInfo;
-@property (nonatomic, weak)   NSArray <InstagramUser *> *foundUsers;
-@property (nonatomic, weak)   NSMutableArray <InstagramMedia *> *mediaInfo;
-@property (nonatomic, strong)   NSMutableArray <UIImageView *> *loadedMedia;
+@property (nonatomic, strong) InstagramUser *foundUser;
+@property (nonatomic, strong) NSArray <UIImageView *> *loadedMedia;
 @property (nonatomic, strong) UICollectionView *loadedMediaView;
+@property (nonatomic, strong) UITextView *errorView;
 
 @end
 
@@ -77,87 +79,58 @@
 #pragma mark - Login
 
 -(void) tryToLogin {
-    //[self.engine logout];
-    NSURL *authURL = [self.engine authorizationURLForScope:InstagramKitLoginScopePublicContent];
-    [self.loginButton removeFromSuperview];
-    [self.view addSubview: self.webView];
-    [self.webView loadRequest:[NSURLRequest requestWithURL:authURL]];
+    [ServerInteractionManager tryToLogInWithCompletionBlock:^(BOOL success) {
+        if (success) {
+        [self.loginButton removeFromSuperview];
+        [self.view addSubview:self.searchButton];
+        [self.view addSubview:self.searchField];
+        } else if (!success) {
+            UIAlertView *alertView = [[UIAlertView alloc] initWithTitle:nil message:@"Some error occurred. Please try again." delegate:nil cancelButtonTitle:@"OK" otherButtonTitles: nil];
+            [alertView show];
+        }
+    }sender:self];
+//    [self.engine logout];
+//    NSURL *authURL = [self.engine authorizationURLForScope:InstagramKitLoginScopePublicContent];
+//    [self.loginButton removeFromSuperview];
+//    [self.view addSubview: self.webView];
+//    [self.webView loadRequest:[NSURLRequest requestWithURL:authURL]];
+//    LoginViewController *LoginVC = [LoginViewController new];
+//    [self presentViewController:LoginVC animated:YES completion:nil];
 }
 
-- (void) loginSucceeded {
-    [self.webView removeFromSuperview];
-    [self.view addSubview:self.searchButton];
-    [self.view addSubview:self.searchField];
-}
+//- (void) loginSucceeded {
+//    [self.webView removeFromSuperview];
+//    [self.view addSubview:self.searchButton];
+//    [self.view addSubview:self.searchField];
+//}
 
 #pragma mark - Search
 
 - (void) startSearch {
-    [self.engine searchUsersWithString:self.searchField.text withSuccess: ^(NSArray <InstagramUser *> __weak *users, InstagramPaginationInfo __weak *paginationInfo){
-        self.foundUsers = [NSArray arrayWithArray: [users copy]];
-        NSLog(@"Search Succeeded, users List: %@", self.foundUsers);
-        self.paginationInfo = paginationInfo;
-        [self.searchField removeFromSuperview];
-        [self.searchButton removeFromSuperview];
-        if (self.foundUsers.count > 0) {
-            [self loadPicturesForUser: [self.foundUsers objectAtIndex: 0]];
+    self.foundUser = [ServerInteractionManager findAUserWithString:self.searchField.text];
+        if (self.foundUser) {
+            [self.searchField removeFromSuperview];
+            [self.searchButton removeFromSuperview];
+            [self loadPicturesForUser: self.foundUser];
+        } else {
+            UIAlertView *alert = [[UIAlertView alloc] initWithTitle:nil message:@"No users Found!" delegate:nil cancelButtonTitle:@"Try again!" otherButtonTitles:nil];
+            [alert show];
         }
-    }failure: ^(NSError *error, NSInteger serverStatusCode) {NSLog(@"Search Failed, code: %li", (long)serverStatusCode);}];
 }
 
 #pragma mark - ImageLoader
 
 - (void) loadPicturesForUser: (InstagramUser *) user {
-    [self.engine
-     getMediaForUser:user.Id
-     withSuccess:^(NSArray <InstagramMedia *> * __weak media, InstagramPaginationInfo * _Nonnull paginationInfo) {
-         NSLog(@"Media Successfully Loaded!");
-         self.mediaInfo = [NSMutableArray arrayWithArray:media];
-         [self sortMedia: self.mediaInfo];
-         //NSLog(@"Media: %@", self.loadedMedia);
-     }
-     failure:^(NSError * _Nonnull error, NSInteger serverStatusCode) {}];
-}
-
-- (void) sortMedia: (NSMutableArray <InstagramMedia *> *)media{
-    NSLog(@"Started Sorting");
-    BOOL isSorted = NO;
-    InstagramMedia __weak *mediaBuffer;
-    for (int i = 0; i < media.count; i++) {
-        if (media[i].isVideo == YES) {
-            [media removeObjectAtIndex:i];
-        }
-    }
-    while (!isSorted) {
-            isSorted = YES;
-        for (int i = 1; i < media.count; i++) {
-            if (media[i - 1].likesCount < media[i].likesCount){
-                isSorted = NO;
-                mediaBuffer = media[i - 1];
-                media[i - 1] = media[i];
-                media[i] = mediaBuffer;
-            }
-        }
-    }
-    self.mediaInfo = media;
-    NSLog(@"Sorting Completed!");
-    for (int i = 0; i < self.mediaInfo.count; i++){
-        NSLog(@"Position: %i, Likes Count: %li", i, (long)self.mediaInfo[i].likesCount);
-    }
-    self.loadedMedia = [NSMutableArray arrayWithCapacity:self.mediaInfo.count];
-    for (int i = 0; i < media.count; i++) {
-        self.loadedMedia[i] = [UIImageView new];
-        [self.loadedMedia[i] setImageWithURL: self.mediaInfo[i].thumbnailURL];
-    }
-    [self mediaLoaded];
-}
-
-#pragma mark - UICollectionView Population
-
-- (void) mediaLoaded {
-    NSLog(@"Media: %@", self.loadedMedia);
-    [self.loadedMediaView reloadData];
     [self.view addSubview:self.loadedMediaView];
+    [ServerInteractionManager loadMediaForUser:user withCompletionBlock:^(NSError *error, NSArray <UIImageView *> *recievedData) {
+        if (recievedData) {
+        self.loadedMedia = [NSArray arrayWithArray:recievedData];
+        [self.loadedMediaView reloadData];
+    } else if (error) {
+            UIAlertView *alertView = [[UIAlertView alloc] initWithTitle:nil message:@"Load failed.Please try again." delegate:nil cancelButtonTitle:@"OK" otherButtonTitles: nil];
+            [alertView show];
+        }
+    }];
 }
 
 #pragma mark - UICollectionViewDelegateFlowLayout Realisaton
@@ -180,13 +153,22 @@
 - (UICollectionViewCell *)collectionView:(UICollectionView *)collectionView cellForItemAtIndexPath:(NSIndexPath *)indexPath {
     NSString *simpleSelector = @"myItem";
     UICollectionViewCell *cell = [collectionView dequeueReusableCellWithReuseIdentifier:simpleSelector forIndexPath:indexPath];
-    UIImageView *image = (UIImageView *)[cell viewWithTag:69];
-    if (!image) {
-        image = [[UIImageView alloc] initWithImage:[[self.loadedMedia objectAtIndex:indexPath.item] image]];
-        [image setTag:69];
+    BOOL hasImage = ([self viewContainsImage:cell.contentView]);
+    if (!hasImage) {
+        UIImageView *image = [[UIImageView alloc] initWithImage:[[self.loadedMedia objectAtIndex:indexPath.item] image]];
         [cell.contentView addSubview:image];
     }
+    
     return cell;
+}
+
+- (BOOL) viewContainsImage:(UIView*)superview {
+    for (UIView *view in superview.subviews) {
+        if ([view isKindOfClass:[UIImageView class]]) {
+            return YES;
+        }
+    }
+    return NO;
 }
 
 @end

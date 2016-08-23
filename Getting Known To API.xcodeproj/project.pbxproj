@@ -7,6 +7,9 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		040EBDCE1D6343D3008AE4E4 /* LoginViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 040EBDCD1D6343D3008AE4E4 /* LoginViewController.m */; };
+		040EBDD41D634905008AE4E4 /* ServerInteractionManager.m in Sources */ = {isa = PBXBuildFile; fileRef = 040EBDD31D634905008AE4E4 /* ServerInteractionManager.m */; };
+		040EBDD91D635031008AE4E4 /* iPlaceholder.png in Resources */ = {isa = PBXBuildFile; fileRef = 040EBDD81D635031008AE4E4 /* iPlaceholder.png */; };
 		047161881D4D385900BFD77C /* Podfile in Resources */ = {isa = PBXBuildFile; fileRef = 047161871D4D385900BFD77C /* Podfile */; };
 		0477F9481D4BDE5A0068BD89 /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = 0477F9471D4BDE5A0068BD89 /* main.m */; };
 		0477F94B1D4BDE5A0068BD89 /* AppDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = 0477F94A1D4BDE5A0068BD89 /* AppDelegate.m */; };
@@ -40,6 +43,11 @@
 
 /* Begin PBXFileReference section */
 		022E20693AEA746C150B7025 /* libPods-Getting Known To APITests.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = "libPods-Getting Known To APITests.a"; sourceTree = BUILT_PRODUCTS_DIR; };
+		040EBDCC1D6343D3008AE4E4 /* LoginViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = LoginViewController.h; path = Controllers/LoginViewController.h; sourceTree = "<group>"; };
+		040EBDCD1D6343D3008AE4E4 /* LoginViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = LoginViewController.m; path = Controllers/LoginViewController.m; sourceTree = "<group>"; };
+		040EBDD21D634905008AE4E4 /* ServerInteractionManager.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = ServerInteractionManager.h; path = DataManager/ServerInteractionManager.h; sourceTree = "<group>"; };
+		040EBDD31D634905008AE4E4 /* ServerInteractionManager.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = ServerInteractionManager.m; path = DataManager/ServerInteractionManager.m; sourceTree = "<group>"; };
+		040EBDD81D635031008AE4E4 /* iPlaceholder.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = iPlaceholder.png; sourceTree = "<group>"; };
 		047161871D4D385900BFD77C /* Podfile */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; name = Podfile; path = "Getting Known To API/Podfile"; sourceTree = "<group>"; };
 		0477F9431D4BDE5A0068BD89 /* Getting Known To API.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = "Getting Known To API.app"; sourceTree = BUILT_PRODUCTS_DIR; };
 		0477F9471D4BDE5A0068BD89 /* main.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = main.m; sourceTree = "<group>"; };
@@ -95,6 +103,31 @@
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
+		040EBDCF1D6343DB008AE4E4 /* View Conrollers */ = {
+			isa = PBXGroup;
+			children = (
+				040EBDCC1D6343D3008AE4E4 /* LoginViewController.h */,
+				040EBDCD1D6343D3008AE4E4 /* LoginViewController.m */,
+			);
+			name = "View Conrollers";
+			sourceTree = "<group>";
+		};
+		040EBDD01D6348CD008AE4E4 /* Model */ = {
+			isa = PBXGroup;
+			children = (
+			);
+			name = Model;
+			sourceTree = "<group>";
+		};
+		040EBDD11D6348D6008AE4E4 /* DataManager */ = {
+			isa = PBXGroup;
+			children = (
+				040EBDD21D634905008AE4E4 /* ServerInteractionManager.h */,
+				040EBDD31D634905008AE4E4 /* ServerInteractionManager.m */,
+			);
+			name = DataManager;
+			sourceTree = "<group>";
+		};
 		0477F93A1D4BDE5A0068BD89 = {
 			isa = PBXGroup;
 			children = (
@@ -121,15 +154,19 @@
 		0477F9451D4BDE5A0068BD89 /* Getting Known To API */ = {
 			isa = PBXGroup;
 			children = (
+				040EBDD11D6348D6008AE4E4 /* DataManager */,
+				040EBDD01D6348CD008AE4E4 /* Model */,
 				0477F9491D4BDE5A0068BD89 /* AppDelegate.h */,
 				0477F94A1D4BDE5A0068BD89 /* AppDelegate.m */,
 				0477F94C1D4BDE5A0068BD89 /* ViewController.h */,
 				0477F94D1D4BDE5A0068BD89 /* ViewController.m */,
+				040EBDCF1D6343DB008AE4E4 /* View Conrollers */,
 				0477F97C1D4BF4580068BD89 /* Views */,
 				0477F94F1D4BDE5A0068BD89 /* Main.storyboard */,
 				0477F9521D4BDE5A0068BD89 /* Assets.xcassets */,
 				0477F9541D4BDE5A0068BD89 /* LaunchScreen.storyboard */,
 				0477F9571D4BDE5A0068BD89 /* Info.plist */,
+				040EBDD81D635031008AE4E4 /* iPlaceholder.png */,
 				0477F9461D4BDE5A0068BD89 /* Supporting Files */,
 			);
 			path = "Getting Known To API";
@@ -303,6 +340,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				0477F9561D4BDE5A0068BD89 /* LaunchScreen.storyboard in Resources */,
+				040EBDD91D635031008AE4E4 /* iPlaceholder.png in Resources */,
 				0477F9531D4BDE5A0068BD89 /* Assets.xcassets in Resources */,
 				047161881D4D385900BFD77C /* Podfile in Resources */,
 				0477F9511D4BDE5A0068BD89 /* Main.storyboard in Resources */,
@@ -453,6 +491,8 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				040EBDCE1D6343D3008AE4E4 /* LoginViewController.m in Sources */,
+				040EBDD41D634905008AE4E4 /* ServerInteractionManager.m in Sources */,
 				0477F94E1D4BDE5A0068BD89 /* ViewController.m in Sources */,
 				0477F94B1D4BDE5A0068BD89 /* AppDelegate.m in Sources */,
 				0477F9481D4BDE5A0068BD89 /* main.m in Sources */,
