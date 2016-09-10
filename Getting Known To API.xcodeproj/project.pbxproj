@@ -10,7 +10,7 @@
 		040EBDCE1D6343D3008AE4E4 /* LoginViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 040EBDCD1D6343D3008AE4E4 /* LoginViewController.m */; };
 		040EBDD41D634905008AE4E4 /* ServerInteractionManager.m in Sources */ = {isa = PBXBuildFile; fileRef = 040EBDD31D634905008AE4E4 /* ServerInteractionManager.m */; };
 		040EBDD91D635031008AE4E4 /* iPlaceholder.png in Resources */ = {isa = PBXBuildFile; fileRef = 040EBDD81D635031008AE4E4 /* iPlaceholder.png */; };
-		047161881D4D385900BFD77C /* Podfile in Resources */ = {isa = PBXBuildFile; fileRef = 047161871D4D385900BFD77C /* Podfile */; };
+		0420438E1D79BF7000F0A005 /* SearchViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 0420438D1D79BF7000F0A005 /* SearchViewController.m */; };
 		0477F9481D4BDE5A0068BD89 /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = 0477F9471D4BDE5A0068BD89 /* main.m */; };
 		0477F94B1D4BDE5A0068BD89 /* AppDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = 0477F94A1D4BDE5A0068BD89 /* AppDelegate.m */; };
 		0477F94E1D4BDE5A0068BD89 /* ViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 0477F94D1D4BDE5A0068BD89 /* ViewController.m */; };
@@ -19,6 +19,13 @@
 		0477F9561D4BDE5A0068BD89 /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 0477F9541D4BDE5A0068BD89 /* LaunchScreen.storyboard */; };
 		0477F9611D4BDE5A0068BD89 /* Getting_Known_To_APITests.m in Sources */ = {isa = PBXBuildFile; fileRef = 0477F9601D4BDE5A0068BD89 /* Getting_Known_To_APITests.m */; };
 		0477F96C1D4BDE5A0068BD89 /* Getting_Known_To_APIUITests.m in Sources */ = {isa = PBXBuildFile; fileRef = 0477F96B1D4BDE5A0068BD89 /* Getting_Known_To_APIUITests.m */; };
+		04AF3C9C1D8097D500F22374 /* MyMediaModel.m in Sources */ = {isa = PBXBuildFile; fileRef = 04AF3C9B1D8097D500F22374 /* MyMediaModel.m */; };
+		04AF3CA01D809D1900F22374 /* MyCollectionViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 04AF3C9F1D809D1900F22374 /* MyCollectionViewController.m */; };
+		04D5EC661D7F53B200E4B965 /* MyButtons.m in Sources */ = {isa = PBXBuildFile; fileRef = 04D5EC651D7F53B200E4B965 /* MyButtons.m */; };
+		04D5EC691D7F5B0400E4B965 /* MyWebView.m in Sources */ = {isa = PBXBuildFile; fileRef = 04D5EC681D7F5B0400E4B965 /* MyWebView.m */; };
+		04D5EC6C1D7F5B2600E4B965 /* MySearchField.m in Sources */ = {isa = PBXBuildFile; fileRef = 04D5EC6B1D7F5B2600E4B965 /* MySearchField.m */; };
+		04D5EC721D7F5B6400E4B965 /* MyCollectionViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 04D5EC711D7F5B6400E4B965 /* MyCollectionViewCell.m */; };
+		04D5EC751D7F5B9500E4B965 /* MyUserModel.m in Sources */ = {isa = PBXBuildFile; fileRef = 04D5EC741D7F5B9500E4B965 /* MyUserModel.m */; };
 		72F1BA868FBE04A7DCB5F743 /* libPods-Getting Known To API.a in Frameworks */ = {isa = PBXBuildFile; fileRef = B3C098ADEF6CC7155B01EF0E /* libPods-Getting Known To API.a */; };
 		7F898AC2622DBDA49F84CBC7 /* libPods-Getting Known To APIUITests.a in Frameworks */ = {isa = PBXBuildFile; fileRef = CF6C05AA148160A0345C66CA /* libPods-Getting Known To APIUITests.a */; };
 		D7FA13BD74F7A735B1BE101E /* libPods-Getting Known To APITests.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 022E20693AEA746C150B7025 /* libPods-Getting Known To APITests.a */; };
@@ -48,7 +55,8 @@
 		040EBDD21D634905008AE4E4 /* ServerInteractionManager.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = ServerInteractionManager.h; path = DataManager/ServerInteractionManager.h; sourceTree = "<group>"; };
 		040EBDD31D634905008AE4E4 /* ServerInteractionManager.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = ServerInteractionManager.m; path = DataManager/ServerInteractionManager.m; sourceTree = "<group>"; };
 		040EBDD81D635031008AE4E4 /* iPlaceholder.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = iPlaceholder.png; sourceTree = "<group>"; };
-		047161871D4D385900BFD77C /* Podfile */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; name = Podfile; path = "Getting Known To API/Podfile"; sourceTree = "<group>"; };
+		0420438C1D79BF7000F0A005 /* SearchViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = SearchViewController.h; path = Controllers/SearchViewController.h; sourceTree = "<group>"; };
+		0420438D1D79BF7000F0A005 /* SearchViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = SearchViewController.m; path = Controllers/SearchViewController.m; sourceTree = "<group>"; };
 		0477F9431D4BDE5A0068BD89 /* Getting Known To API.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = "Getting Known To API.app"; sourceTree = BUILT_PRODUCTS_DIR; };
 		0477F9471D4BDE5A0068BD89 /* main.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = main.m; sourceTree = "<group>"; };
 		0477F9491D4BDE5A0068BD89 /* AppDelegate.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = AppDelegate.h; sourceTree = "<group>"; };
@@ -65,6 +73,20 @@
 		0477F9671D4BDE5A0068BD89 /* Getting Known To APIUITests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = "Getting Known To APIUITests.xctest"; sourceTree = BUILT_PRODUCTS_DIR; };
 		0477F96B1D4BDE5A0068BD89 /* Getting_Known_To_APIUITests.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = Getting_Known_To_APIUITests.m; sourceTree = "<group>"; };
 		0477F96D1D4BDE5A0068BD89 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		04AF3C9A1D8097D500F22374 /* MyMediaModel.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = MyMediaModel.h; path = Model/MyMediaModel.h; sourceTree = "<group>"; };
+		04AF3C9B1D8097D500F22374 /* MyMediaModel.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = MyMediaModel.m; path = Model/MyMediaModel.m; sourceTree = "<group>"; };
+		04AF3C9E1D809D1900F22374 /* MyCollectionViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = MyCollectionViewController.h; path = Controllers/MyCollectionViewController.h; sourceTree = "<group>"; };
+		04AF3C9F1D809D1900F22374 /* MyCollectionViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = MyCollectionViewController.m; path = Controllers/MyCollectionViewController.m; sourceTree = "<group>"; };
+		04D5EC641D7F53B200E4B965 /* MyButtons.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = MyButtons.h; path = Views/MyButtons.h; sourceTree = "<group>"; };
+		04D5EC651D7F53B200E4B965 /* MyButtons.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = MyButtons.m; path = Views/MyButtons.m; sourceTree = "<group>"; };
+		04D5EC671D7F5B0400E4B965 /* MyWebView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = MyWebView.h; path = Views/MyWebView.h; sourceTree = "<group>"; };
+		04D5EC681D7F5B0400E4B965 /* MyWebView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = MyWebView.m; path = Views/MyWebView.m; sourceTree = "<group>"; };
+		04D5EC6A1D7F5B2600E4B965 /* MySearchField.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = MySearchField.h; path = Views/MySearchField.h; sourceTree = "<group>"; };
+		04D5EC6B1D7F5B2600E4B965 /* MySearchField.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = MySearchField.m; path = Views/MySearchField.m; sourceTree = "<group>"; };
+		04D5EC701D7F5B6400E4B965 /* MyCollectionViewCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = MyCollectionViewCell.h; path = Views/MyCollectionViewCell.h; sourceTree = "<group>"; };
+		04D5EC711D7F5B6400E4B965 /* MyCollectionViewCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = MyCollectionViewCell.m; path = Views/MyCollectionViewCell.m; sourceTree = "<group>"; };
+		04D5EC731D7F5B9500E4B965 /* MyUserModel.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = MyUserModel.h; path = Model/MyUserModel.h; sourceTree = "<group>"; };
+		04D5EC741D7F5B9500E4B965 /* MyUserModel.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = MyUserModel.m; path = Model/MyUserModel.m; sourceTree = "<group>"; };
 		1308535684EE04C51D310708 /* Pods-Getting Known To API.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Getting Known To API.release.xcconfig"; path = "Pods/Target Support Files/Pods-Getting Known To API/Pods-Getting Known To API.release.xcconfig"; sourceTree = "<group>"; };
 		42C194644F1342E2380A9F3B /* Pods-Getting Known To APIUITests.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Getting Known To APIUITests.release.xcconfig"; path = "Pods/Target Support Files/Pods-Getting Known To APIUITests/Pods-Getting Known To APIUITests.release.xcconfig"; sourceTree = "<group>"; };
 		B3B05A03EE223E9D120C6BAB /* Pods-Getting Known To APITests.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Getting Known To APITests.release.xcconfig"; path = "Pods/Target Support Files/Pods-Getting Known To APITests/Pods-Getting Known To APITests.release.xcconfig"; sourceTree = "<group>"; };
@@ -106,8 +128,14 @@
 		040EBDCF1D6343DB008AE4E4 /* View Conrollers */ = {
 			isa = PBXGroup;
 			children = (
+				0477F94C1D4BDE5A0068BD89 /* ViewController.h */,
+				0477F94D1D4BDE5A0068BD89 /* ViewController.m */,
 				040EBDCC1D6343D3008AE4E4 /* LoginViewController.h */,
 				040EBDCD1D6343D3008AE4E4 /* LoginViewController.m */,
+				0420438C1D79BF7000F0A005 /* SearchViewController.h */,
+				0420438D1D79BF7000F0A005 /* SearchViewController.m */,
+				04AF3C9E1D809D1900F22374 /* MyCollectionViewController.h */,
+				04AF3C9F1D809D1900F22374 /* MyCollectionViewController.m */,
 			);
 			name = "View Conrollers";
 			sourceTree = "<group>";
@@ -115,6 +143,10 @@
 		040EBDD01D6348CD008AE4E4 /* Model */ = {
 			isa = PBXGroup;
 			children = (
+				04D5EC731D7F5B9500E4B965 /* MyUserModel.h */,
+				04D5EC741D7F5B9500E4B965 /* MyUserModel.m */,
+				04AF3C9A1D8097D500F22374 /* MyMediaModel.h */,
+				04AF3C9B1D8097D500F22374 /* MyMediaModel.m */,
 			);
 			name = Model;
 			sourceTree = "<group>";
@@ -131,7 +163,6 @@
 		0477F93A1D4BDE5A0068BD89 = {
 			isa = PBXGroup;
 			children = (
-				047161871D4D385900BFD77C /* Podfile */,
 				0477F9451D4BDE5A0068BD89 /* Getting Known To API */,
 				0477F95F1D4BDE5A0068BD89 /* Getting Known To APITests */,
 				0477F96A1D4BDE5A0068BD89 /* Getting Known To APIUITests */,
@@ -156,10 +187,7 @@
 			children = (
 				040EBDD11D6348D6008AE4E4 /* DataManager */,
 				040EBDD01D6348CD008AE4E4 /* Model */,
-				0477F9491D4BDE5A0068BD89 /* AppDelegate.h */,
-				0477F94A1D4BDE5A0068BD89 /* AppDelegate.m */,
-				0477F94C1D4BDE5A0068BD89 /* ViewController.h */,
-				0477F94D1D4BDE5A0068BD89 /* ViewController.m */,
+				04AF3C9D1D80998100F22374 /* AppDelegate */,
 				040EBDCF1D6343DB008AE4E4 /* View Conrollers */,
 				0477F97C1D4BF4580068BD89 /* Views */,
 				0477F94F1D4BDE5A0068BD89 /* Main.storyboard */,
@@ -201,8 +229,25 @@
 		0477F97C1D4BF4580068BD89 /* Views */ = {
 			isa = PBXGroup;
 			children = (
+				04D5EC641D7F53B200E4B965 /* MyButtons.h */,
+				04D5EC651D7F53B200E4B965 /* MyButtons.m */,
+				04D5EC671D7F5B0400E4B965 /* MyWebView.h */,
+				04D5EC681D7F5B0400E4B965 /* MyWebView.m */,
+				04D5EC6A1D7F5B2600E4B965 /* MySearchField.h */,
+				04D5EC6B1D7F5B2600E4B965 /* MySearchField.m */,
+				04D5EC701D7F5B6400E4B965 /* MyCollectionViewCell.h */,
+				04D5EC711D7F5B6400E4B965 /* MyCollectionViewCell.m */,
 			);
 			name = Views;
+			sourceTree = "<group>";
+		};
+		04AF3C9D1D80998100F22374 /* AppDelegate */ = {
+			isa = PBXGroup;
+			children = (
+				0477F9491D4BDE5A0068BD89 /* AppDelegate.h */,
+				0477F94A1D4BDE5A0068BD89 /* AppDelegate.m */,
+			);
+			name = AppDelegate;
 			sourceTree = "<group>";
 		};
 		2F429C5793E8D9EC594A6FE1 /* Pods */ = {
@@ -342,7 +387,6 @@
 				0477F9561D4BDE5A0068BD89 /* LaunchScreen.storyboard in Resources */,
 				040EBDD91D635031008AE4E4 /* iPlaceholder.png in Resources */,
 				0477F9531D4BDE5A0068BD89 /* Assets.xcassets in Resources */,
-				047161881D4D385900BFD77C /* Podfile in Resources */,
 				0477F9511D4BDE5A0068BD89 /* Main.storyboard in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -491,10 +535,18 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				04AF3C9C1D8097D500F22374 /* MyMediaModel.m in Sources */,
+				04D5EC721D7F5B6400E4B965 /* MyCollectionViewCell.m in Sources */,
+				04D5EC661D7F53B200E4B965 /* MyButtons.m in Sources */,
+				04AF3CA01D809D1900F22374 /* MyCollectionViewController.m in Sources */,
 				040EBDCE1D6343D3008AE4E4 /* LoginViewController.m in Sources */,
 				040EBDD41D634905008AE4E4 /* ServerInteractionManager.m in Sources */,
 				0477F94E1D4BDE5A0068BD89 /* ViewController.m in Sources */,
 				0477F94B1D4BDE5A0068BD89 /* AppDelegate.m in Sources */,
+				04D5EC691D7F5B0400E4B965 /* MyWebView.m in Sources */,
+				04D5EC6C1D7F5B2600E4B965 /* MySearchField.m in Sources */,
+				0420438E1D79BF7000F0A005 /* SearchViewController.m in Sources */,
+				04D5EC751D7F5B9500E4B965 /* MyUserModel.m in Sources */,
 				0477F9481D4BDE5A0068BD89 /* main.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;

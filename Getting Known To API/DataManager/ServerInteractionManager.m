@@ -8,6 +8,8 @@
 
 #import "ServerInteractionManager.h"
 #import "InstagramKit.h"
+#import "MyMediaModel.h"
+#import "MyUserModel.h"
 #import "LoginViewController.h"
 #import "UIImageView+AFNetworking.h"
 
@@ -28,7 +30,7 @@
         completionBlock(NO);
     };
     loginVC = [[LoginViewController <ServerInteractionManagerLoginDelegate> alloc] initWithConfirmationBlock:confirmationBlock failureBlock:failureBlock];
-    //[engine logout];
+    [engine logout];
     NSURL *authURL = [engine authorizationURLForScope:InstagramKitLoginScopePublicContent];
     [sender presentViewController:loginVC animated:YES completion:nil];
     if ([loginVC respondsToSelector:@selector(performLoginWithURL:)]) {
@@ -36,33 +38,32 @@
     }
 }
 
-+ (InstagramUser *) findAUserWithString:(NSString *)searchString {
++ (void ) findAUserWithString:(NSString *)searchString usingCompletionBlock:(void(^)(NSError *error, MyUserModel *targetUser))completionBlock {
     InstagramEngine *engine = [InstagramEngine sharedEngine];
-    InstagramUser * __block __strong targetUser;
-    [[InstagramEngine sharedEngine] searchUsersWithString:searchString withSuccess:^(NSArray<InstagramUser *> *users, InstagramPaginationInfo *paginationInfo) {
-        NSLog(@"Found Users: %@", users);
-        targetUser = [users[0] copy];
+    MyUserModel * __block __strong targetUser;
+    [engine searchUsersWithString:searchString withSuccess:^(NSArray<InstagramUser *> *users, InstagramPaginationInfo *paginationInfo) {
+        targetUser = [[MyUserModel alloc] initWithInstagramUser:users[0]];
+        completionBlock(nil, targetUser);
     } failure:^(NSError * _Nonnull error, NSInteger serverStatusCode) {
-        UIAlertView *alert = [[UIAlertView alloc] initWithTitle:nil message:@"Error in searching for users. Please try again." delegate:nil cancelButtonTitle:@"OK" otherButtonTitles: nil];
-        [alert show];
+        completionBlock(error, nil);
     }];
-    return targetUser;
 }
 
-+ (void) loadMediaForUser:(InstagramUser *)user withCompletionBlock:(void(^)(NSError *error, NSArray <UIImageView *> *recievedData))completionBlock {
++ (void) loadMediaForUser:(MyUserModel *)user withCompletionBlock:(void(^)(NSError *error, NSArray <UIImageView *> *recievedData))completionBlock {
     InstagramEngine *engine = [InstagramEngine sharedEngine];
-    //[self.view addSubview:self.loadedMediaView];
-    NSMutableArray <UIImageView *> * __block __strong loadedMedia;
+    __block NSMutableArray <UIImageView *> *loadedMedia;
     [engine
      getMediaForUser:user.Id
      withSuccess:^(NSArray <InstagramMedia *> *media, InstagramPaginationInfo *paginationInfo) {
-         NSLog(@"Media Successfully Loaded!");
-         //NSLog(@"Media: %@", self.loadedMedia);NSLog(@"Started Sorting");
-         NSMutableArray <InstagramMedia *> *mutableMedia = [media mutableCopy];
+         NSMutableArray <MyMediaModel *> *mutableMedia = [NSMutableArray arrayWithCapacity:0];
+         for (int i = 0; i < media.count; i++) {
+             MyMediaModel *mediaModel = [[MyMediaModel alloc] initWithMedia:media[i]];
+             [mutableMedia addObject: mediaModel];
+         }
          BOOL isSorted = NO;
-         InstagramMedia __weak *mediaBuffer;
+         MyMediaModel *mediaBuffer;
          for (int i = 0; i < mutableMedia.count; i++) {
-             if (media[i].isVideo == YES) {
+             while (mutableMedia[i].isVideo == YES) {
                  [mutableMedia removeObjectAtIndex:i];
              }
          }
@@ -77,10 +78,6 @@
                  }
              }
          }
-         NSLog(@"Sorting Completed!");
-         for (int i = 0; i < mutableMedia.count; i++){
-             NSLog(@"Position: %i, Likes Count: %li", i, (long)mutableMedia[i].likesCount);
-         }
          loadedMedia = [NSMutableArray arrayWithCapacity:mutableMedia.count];
          dispatch_group_t group = dispatch_group_create();
          for (int i = 0; i < mutableMedia.count; i++) {
@@ -88,7 +85,7 @@
          }
          for (int i = 0; i < mutableMedia.count; i++) {
              UIImageView *currentImage = [UIImageView new];
-             NSURL *imageURL = ((InstagramMedia *)mutableMedia[i]).thumbnailURL;
+             NSURL *imageURL = ((MyMediaModel *)mutableMedia[i]).thumbnailURL;
              [loadedMedia addObject:currentImage];
              NSMutableURLRequest *request = [NSMutableURLRequest requestWithURL:imageURL];
              [request addValue:@"image/*" forHTTPHeaderField:@"Accept"];
@@ -97,12 +94,12 @@
                  [loadedMedia[i] setImage:image];
              } failure:^(NSURLRequest * _Nonnull request, NSHTTPURLResponse * _Nullable response, NSError * _Nonnull error) {
                  dispatch_group_leave(group);
-                 NSLog(@"ERROR: %@", error.localizedDescription);
+                 UIAlertView *alert = [[UIAlertView alloc] initWithTitle:@"Error" message:error.localizedDescription delegate:nil cancelButtonTitle:@"Ok" otherButtonTitles: nil];
+                 [alert show];
              }];
          }
          
          dispatch_group_notify(group, dispatch_get_main_queue(), ^{
-             //[self.loadedMediaView reloadData];
              completionBlock(nil, [NSArray arrayWithArray:loadedMedia]);
          });
      }

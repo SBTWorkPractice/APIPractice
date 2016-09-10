@@ -9,16 +9,11 @@
 #import "LoginViewController.h"
 #import "ServerInteractionManager.h"
 #import "InstagramEngine.h"
-
-//@protocol LoginVCDelegate <NSObject>
-//
-//- (void)
-//
-//@end
+#import "MyWebView.h"
 
 @interface LoginViewController () <ServerInteractionManagerLoginDelegate, UIWebViewDelegate>
 
-@property (nonatomic, strong, readonly) UIWebView *webView;
+@property (nonatomic, strong, readonly) MyWebView *webView;
 @property (nonatomic, strong) void (^confirmationBlock)();
 @property (nonatomic, strong) void (^failureBlock)();
 
@@ -38,8 +33,7 @@
 - (void)viewDidLoad {
     [super viewDidLoad];
     self.view.backgroundColor = [UIColor whiteColor];
-    self->_webView = [UIWebView new];
-    self.webView.delegate = self;
+    self->_webView = [[MyWebView alloc] initWithDelegate: self];
     [self.view addSubview:self.webView];
 }
 

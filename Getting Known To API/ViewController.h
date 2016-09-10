@@ -11,10 +11,5 @@
 
 @interface ViewController : UIViewController
 
-- (void) loginSucceeded;
-- (void) loadPicturesForUser: (InstagramUser *) user;
-- (void) sortMedia: (NSMutableArray <InstagramMedia *> *) media;
-- (void) mediaLoaded;
-
 @end
 
